@@ -1,0 +1,87 @@
+<h2>Checkout</h2>
+
+<div *ngIf="products">
+	<div class="overflow-x-auto p-6">
+		<table class="min-w-full divide-y divide-gray-200 text-sm">
+			<thead class="bg-gray-100">
+				<tr>
+					<th class="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
+						Name
+					</th>
+					<th class="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
+						Picture
+					</th>
+					<th class="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
+						Specifications
+					</th>
+					<th class="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
+						Quantity
+					</th>
+					<th class="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
+						Total price
+					</th>
+				</tr>
+			</thead>
+			<tbody class="divide-y divide-gray-200">
+				<tr *ngFor="let product of products">
+					<td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+						{{ product.name }}
+					</td>
+					<td class="whitespace-nowrap px-4 py-2 text-gray-700">
+						<img [src]="product.picture" alt="product picture"
+							class=" w-[300px] object-cover sm:h-[200px]" />
+					</td>
+					<td class="whitespace-nowrap px-4 py-2 text-gray-700">
+						<ul>
+							<li>
+								Color: {{ product.specifications.color }}
+							</li>
+							<li>
+								Weight: {{ product.specifications.weight }}
+							</li>
+							<li>
+								Storage: {{ product.specifications.storage }}
+							</li>
+							<li>
+								Price: {{ product.specifications.price }}$
+							</li>
+						</ul>
+
+					</td>
+					<td class="whitespace-nowrap px-4 py-2 text-gray-700">
+						<span class="inline-flex divide-x overflow-hidden rounded-md border bg-white shadow-sm">
+							<a class="inline-block p-3 text-gray-700 hover:bg-gray-100 focus:relative"
+								title="remove Quantity" (click)="removeQuantity(product)">
+								-
+							</a>
+							<a class="inline-block p-3 text-gray-700">
+								{{ product.quantity }}
+							</a>
+
+							<a class="inline-block p-3 text-gray-700 hover:bg-gray-100 focus:relative"
+								title="add Quantity" (click)="addQuantity(product)">
+								+
+							</a>
+						</span>
+					</td>
+					<td class="whitespace-nowrap px-4 py-2 text-gray-700">
+						{{ product.quantity > 0 ? product.quantity * product.specifications.price :
+						product.specifications.price }}$
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="p-6">
+		<span class="text-2xl">Your order: </span>
+		<div *ngFor="let product of products">
+			- {{ product.quantity }} {{ product.name }}: {{ product.quantity > 0 ? product.quantity * product.specifications.price : product.specifications.price }}$
+		</div>
+		<br>
+		<hr>
+		Total price: {{ totalPrice}}$
+	</div>
+</div>
+<div *ngIf="!products">
+	Your cart is empty
+</div>

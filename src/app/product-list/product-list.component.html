@@ -1,0 +1,41 @@
+<div class="text-3xl font-bold flex items-center justify-center">
+	<span class="text-blue-500" *ngIf="!changeText">Welcome to my shop</span>
+	<span class="text-lime-500" *ngIf="changeText">Lot of surprises are waiting for you</span>
+</div>
+
+<section>
+	<ul class="grid gap-4 mt-3 sm:grid-cols-2 lg:grid-cols-5 p-5">
+		<div *ngFor="let product of products">
+			<a href="#" class="block overflow-hidden group border-2" (mouseover)="changeText=true "
+				(mouseout)="changeText=false" (click)="addToCheckout(product)">
+				<img src="{{product.picture}}" alt="" class="h-[350px] w-full object-cover sm:h-[450px]" />
+
+				<div class="mt-1.5">
+					<p class="text-xs text-gray-500">{{product.name}}</p>
+					<div class="mt-1.5 flex gap-1">
+						<form>
+							<fieldset>
+								<legend class="sr-only">Color</legend>
+							</fieldset>
+							<div class="flex flex-wrap justify-center gap-1 [&:hover_label]:opacity-75">
+								<div>
+									<input type="checkbox" id="ColorSg" class="sr-only" />
+									<label for="">{{product.specifications.color}}</label>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="flex justify-between mt-3 text-sm">
+						<h3 class="text-gray-900 group-hover:underline group-hover:underline-offset-4">
+							{{product.specifications.storage}}, {{product.specifications.weight}}
+						</h3>
+
+						<p class="text-gray-900">{{product.specifications.price}}$</p>
+					</div>
+				</div>
+			</a>
+
+		</div>
+	</ul>
+
+</section>
